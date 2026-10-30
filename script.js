@@ -1,4 +1,4 @@
-const apiKey = "BURAYA_GEMINI_API_ANAHTARINI_YAZ"; // Kendi Gemini API anahtarını buraya ekleyebilirsin
+const apiKey = AQ.Ab8RN6JXDWjJ4Q3leaT6KqxZxfMTcufVj7iwm0epYfh10V6C_Q; // Kendi Gemini API anahtarını buraya ekleyebilirsin
 const chatBox = document.getElementById("chat-box");
 const userInput = document.getElementById("user-input");
 
