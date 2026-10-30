@@ -1,4 +1,4 @@
-const apiKey = AQ.Ab8RN6JXDWjJ4Q3leaT6KqxZxfMTcufVj7iwm0epYfh10V6C_Q; // API anahtarın burada kalsın
+const apiKey = "AQ.Ab8RN6JXDWjJ4Q3leaT6KqxZxfMTcufVj7iwm0epYfh10V6C_Q";
 const chatBox = document.getElementById("chat-box");
 const userInput = document.getElementById("user-input");
 
