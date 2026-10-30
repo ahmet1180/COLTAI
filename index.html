@@ -10,7 +10,7 @@
   <div class="chat-container">
     <div id="chat-box" class="chat-box"></div>
     <div class="input-container">
-      <input type="text" id="user-input" placeholder="Mesaj yazın veya '/görsel araba' deyin...">
+      <input type="text" id="user-input" placeholder="Mesaj yazın veya '/görsel araba' deyin..." onkeydown="if(event.key === 'Enter') sendMessage()">
       <button onclick="sendMessage()">Gönder</button>
     </div>
   </div>
