@@ -1,4 +1,4 @@
-const apiKey = AQ.Ab8RN6JXDWjJ4Q3leaT6KqxZxfMTcufVj7iwm0epYfh10V6C_Q; // Kendi Gemini API anahtarını buraya ekleyebilirsin
+const apiKey = AQ.Ab8RN6JXDWjJ4Q3leaT6KqxZxfMTcufVj7iwm0epYfh10V6C_Q; // API anahtarın burada kalsın
 const chatBox = document.getElementById("chat-box");
 const userInput = document.getElementById("user-input");
 
@@ -15,8 +15,25 @@ async function sendMessage() {
     const imageUrl = `https://pollinations.ai/p/${encodedPrompt}`;
     appendImageMessage(imageUrl);
   } else {
-    // Gemini API entegrasyonu veya örnek yanıt
-    appendMessage("Yapay zeka yanıtı yakında aktif olacak...", "ai-message");
+    try {
+      const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          contents: [{
+            parts: [{ text: text }]
+          }]
+        })
+      });
+
+      const data = await response.json();
+      const reply = data.candidates?.[0]?.content?.parts?.[0]?.text || "Üzgünüm, bir yanıt alamadım.";
+      appendMessage(reply, "ai-message");
+    } catch (error) {
+      appendMessage("Bağlantı hatası oluştu.", "ai-message");
+    }
   }
 }
 
