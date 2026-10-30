@@ -1,0 +1,45 @@
+name: Build Android APK
+
+on:
+  push:
+    branches: [ main, master ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v3
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+
+      - name: Install Cordova globally
+        run: npm install -g cordova
+
+      - name: Create Cordova Project
+        run: |
+          cordova create myApp com.coltai.app COLTAIAsistan
+          cd myApp
+          cordova platform add android
+
+      - name: Copy web files to Cordova
+        run: |
+          rm -rf myApp/www/*
+          cp -r index.html myApp/www/ 2>/dev/null || true
+          cp -r style.css myApp/www/ 2>/dev/null || true
+          cp -r script.js myApp/www/ 2>/dev/null || true
+
+      - name: Build APK with Cordova
+        run: |
+          cd myApp
+          cordova build android --debug
+
+      - name: Upload APK Artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: coltai-apk
+          path: myApp/platforms/android/app/build/outputs/apk/debug/app-debug.apk
